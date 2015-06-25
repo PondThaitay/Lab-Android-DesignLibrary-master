@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -30,10 +31,41 @@ public class CodeLabActivity extends AppCompatActivity {
     //TabLayout tabLayout;
     CollapsingToolbarLayout collapsingToolbarLayout;
 
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_code_lab);
+
+        navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                drawerLayout.closeDrawers();
+                switch (menuItem.getItemId()) {
+                    case R.id.navItem1:
+                        First_Layout fragment = new First_Layout();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.frame,fragment);
+                        fragmentTransaction.commit();
+                        Toast.makeText(context, "First Layout", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.navItem2:
+                        Toast.makeText(context, "Seconds Layout", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.navItem3:
+                        Toast.makeText(context, "Third Layout", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.navItem4:
+                        Toast.makeText(context, "Forth Layout", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+        });
         initInstances();
     }
 
